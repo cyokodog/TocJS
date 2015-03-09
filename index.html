@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TOC JS</title>
+<link rel="stylesheet" href="demo.css">
+<style>
+html,body{
+	height: 100%;
+}
+.sidebar{
+	font-size: 90%;
+	padding-right: 2%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 20%;
+	height: 100%;
+	overflow-y: scroll;
+	background: #000;
+}
+.sidebar ul ul{
+	margin-bottom: 16px;
+	padding-top: 8px;
+	border-top: solid 1px #333;
+	border-left: solid 1px #333;
+}
+.sidebar li,
+.sidebar a:visited,
+.sidebar a{
+	color: #aaa;
+	text-decoration: none
+}
+.sidebar a:hover{
+	color: #ffff00;
+}
+.main{
+	margin-left:24%;
+}
+.main p{
+	margin-bottom: 200px;
+}
+.toc .level-2{
+	margin-left: 0;
+}
+.toc .level-3{
+	margin-left: 16px;
+}
+.toc .level-4{
+	margin-left: 32px;
+}
+</style>
+</head>
+<body>
+<div class="sidebar">
+</div>
+<div class="main">
+	<h1>TocJS :: demo <span class="demoID"></span></h1>
+
+	<h2>前書き</h2>
+
+	<h3>オブジェクトの使用法とプロパティ</h3>
+	<p>...</p>
+	<h3>プロトタイプ</h3>
+	<h4>パターン１</h4>
+	<p>...</p>
+	<h4>パターン２</h4>
+	<p>...</p>
+	<h3>hasOwnProperty</h3>
+	<p>...</p>
+	<h3>for inループ</h3>
+	<p>...</p>
+
+	<h2>関数</h2>
+
+	<h3>関数の宣言と式</h3>
+	<p>...</p>
+	<h3>thisはどのように動作するのか</h3>
+	<p>...</p>
+	<h3>クロージャと参照</h3>
+	<p>...</p>
+	<h3>オブジェクトのarguments</h3>
+	<p>...</p>
+
+	<h2>配列</h2>
+
+	<h3>配列の繰り返しとプロパティ</h3>
+	<p>...</p>
+	<h3>Arrayコンストラクター</h3>
+	<p>...</p>
+
+	<h2>型</h2>
+
+	<h3>等価と比較</h3>
+	<p>...</p>
+	<h3>typeof演算子</h3>
+	<p>...</p>
+	<h3>instanceofオペレーター</h3>
+	<p>...</p>
+	<h3>型変換</h3>
+	<h4>String</h4>
+	<p>...</p>
+	<h4>Number</h4>
+	<p>...</p>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script> (window.jQuery || document .write('<script src="js/jquery-1.11.2.min.js"><\/script>')); </script>
+<script src="toc.js"></script>
+<script>
+var demoID = location.hash.replace(/#(.+)/, '$1');
+$('.demoID').text(demoID);
+
+var headingArray = TOC.createHeadingArray(
+	document.querySelector('.main > h2'), 2, 4
+)
+if(demoID == '01'){
+	var ul = $('<ul class="toc"/>').appendTo('.sidebar');
+	headingArray.forEach(function(data, i){
+	    $('<li/>').
+	    addClass('level-' + data.level).
+	    html(
+	        $('<a href="javascript:void(0)"/>').
+	        on('click', function(){
+	            $('html,body').animate({scrollTop: $(data.el).offset().top})
+	        }).
+	        text(data.el.textContent)
+	    ).
+	    appendTo(ul);
+	});
+}
+else
+if(demoID == '02'){
+	// 親子情報の紐付け
+	TOC.addRelationShip(headingArray);
+
+	// UI 生成
+	var ul = $('<ul/>').appendTo('.sidebar');
+	headingArray.forEach(function(data, i){
+	    var container = ul;
+	    if(data.parentNode){
+	        container = data.parentNode.childrenContainer =
+	            data.parentNode.childrenContainer ||
+	            $('<ul/>').appendTo(data.parentNode.item)
+	    }
+	    data.item = 
+	        $('<li/>').html(
+	            $('<a href="javascript:void(0)"/>').
+	            on('click', function(){
+	                $('html,body').animate({scrollTop: $(data.el).offset().top})
+	            }).
+	            text(data.el.textContent)
+	        ).
+	        appendTo(container);
+    });
+}
+else
+if(demoID == '03'){
+	// 親子情報の紐付け
+	TOC.addRelationShip(headingArray);
+
+	// 目次 UI の挿入
+	var toc = TOC.toTocUi(headingArray);
+	document.querySelector('.sidebar').appendChild(toc);
+
+}
+
+
+</script>
+</body>
+</html>
