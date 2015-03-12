@@ -8,7 +8,26 @@
 <link rel="stylesheet" href="demo.css">
 <style>
 html,body{
+	font-family: Meiryo,'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
 	height: 100%;
+}
+h1{
+	text-align: center;
+}
+.logo{
+	padding: 40px 20px;
+	display: inline-block;
+	background: #ffff00;
+	text-align: center;
+	border-radius: 50%;
+}
+a:visited,
+a{
+	text-decoration: none;
+	color: #5588bb;
+}
+.is-active{
+	color: #ff5577!important;
 }
 .sidebar{
 	font-size: 90%;
@@ -16,28 +35,31 @@ html,body{
 	position: fixed;
 	top: 0;
 	left: 0;
-	width: 20%;
+	width: 40%;
 	height: 100%;
 	overflow-y: scroll;
-	background: #000;
+	background: #ffff00;
 }
 .sidebar ul ul{
 	margin-bottom: 16px;
 	padding-top: 8px;
-	border-top: solid 1px #333;
-	border-left: solid 1px #333;
+	border-top: dotted 4px #eeee00;
+	border-left: dotted 4px #eeee00;
 }
 .sidebar li,
 .sidebar a:visited,
 .sidebar a{
-	color: #aaa;
-	text-decoration: none
+	color: #000;
 }
 .sidebar a:hover{
-	color: #ffff00;
+	color: #ff5577;
+}
+.sidebar a{
+	padding: 4px;
+	display: block;
 }
 .main{
-	margin-left:24%;
+	margin-left:44%;
 }
 .main p{
 	margin-bottom: 200px;
@@ -57,7 +79,9 @@ html,body{
 <div class="sidebar">
 </div>
 <div class="main">
-	<h1>TocJS :: demo <span class="demoID"></span></h1>
+	<h1><span class="logo">TocJS</span></h1>
+	<div class="demo">demo <a href="?01">01</a> <a href="?02">02</a> <a href="?03">03</a> </div>
+
 
 	<h2>前書き</h2>
 
@@ -109,8 +133,11 @@ html,body{
 <script> (window.jQuery || document .write('<script src="js/jquery-1.11.2.min.js"><\/script>')); </script>
 <script src="toc.js"></script>
 <script>
-var demoID = location.hash.replace(/#(.+)/, '$1');
+var demoID = location.search.replace(/\?(.+)/, '$1');
 $('.demoID').text(demoID);
+$('.demo a').each(function(){
+	if(this.textContent == demoID) $(this).addClass('is-active');
+})
 
 var headingArray = TOC.createHeadingArray(
 	document.querySelector('.main > h2'), 2, 4
