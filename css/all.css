@@ -1,0 +1,5 @@
+body{font-family:Meiryo,"Myriad Pro",Calibri,Helvetica,Arial,sans-serif;height:100%}h1{text-align:center}a:visited,a{text-decoration:none;color:#5588b0}
+/*# sourceMappingURL=base.min.css.map */
+
+body{font-family:Meiryo,"Myriad Pro",Calibri,Helvetica,Arial,sans-serif;height:100%}h1{text-align:center}a:visited,a{text-decoration:none;color:#58b}.logo{padding:40px 20px;display:inline-block;background:#ff0;text-align:center;border-radius:50%}.is-active{color:#f57 !important}.sidebar{font-size:90%;padding-right:2%;position:fixed;top:0;left:0;width:40%;height:100%;overflow-y:scroll;background:#ff0}.sidebar ul ul{margin-bottom:16px;padding-top:8px;border-top:dotted 4px #ee0;border-left:dotted 4px #ee0}.sidebar li,.sidebar a:visited,.sidebar a{color:#000;padding:4px;display:block}.sidebar a:hover{color:#f57}.main{margin-left:44%}.main p{margin-bottom:200px}.toc .level-2{margin-left:0}.toc .level-3{margin-left:16px}.toc .level-4{margin-left:32px}
+/*# sourceMappingURL=demo.min.css.map */
