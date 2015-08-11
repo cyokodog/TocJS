@@ -71,7 +71,7 @@
           v.el.scrollIntoView(true)
         }
         else {
-          $('head,body').animate({scrollTop:$(v.el).offset().top});
+          $('html,body').animate({scrollTop:$(v.el).offset().top});
         }
       }, false)
       var li = v.item = document.createElement('li');
